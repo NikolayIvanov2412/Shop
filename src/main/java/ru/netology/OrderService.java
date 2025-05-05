@@ -3,24 +3,28 @@ package ru.netology;
 import java.util.List;
 
 public class OrderService {
-    private ProductRepository repository;
+    private SearchableProductRepository searchableRepository;
+    private SingleProductRetriever singleProductRetriever;
     ShoppingCart shoppingCart;
 
-    public OrderService(ProductRepository repository, ShoppingCart shoppingCart) {
-        this.repository = repository;
+    public OrderService(SearchableProductRepository searchableRepository,
+                        SingleProductRetriever singleProductRetriever,
+                        ShoppingCart shoppingCart) {
+        this.searchableRepository = searchableRepository;
+        this.singleProductRetriever = singleProductRetriever;
         this.shoppingCart = shoppingCart;
     }
 
     public List<Product> searchProductsByKeyword(String keyword) {
-        return repository.findProductsByName(keyword);
+        return searchableRepository.findProductsByName(keyword);
     }
 
     public List<Product> searchProductsByPriceRange(double minPrice, double maxPrice) {
-        return repository.findProductsByPriceRange(minPrice, maxPrice);
+        return searchableRepository.findProductsByPriceRange(minPrice, maxPrice);
     }
 
     public void addProductToCart(long productId) {
-        Product product = repository.findProductById(productId);
+        Product product = singleProductRetriever.findProductById(productId);
         if (product != null) {
             shoppingCart.addItem(product);
         }

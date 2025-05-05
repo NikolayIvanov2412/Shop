@@ -3,7 +3,7 @@ package ru.netology;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleProductRepository implements ProductRepository {
+public class SimpleProductRepository implements SearchableProductRepository, SingleProductRetriever {
     private List<Product> products = new ArrayList<>();
 
     public SimpleProductRepository() {
