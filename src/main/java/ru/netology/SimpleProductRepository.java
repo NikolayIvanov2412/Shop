@@ -7,10 +7,17 @@ public class SimpleProductRepository implements SearchableProductRepository, Sin
     private List<Product> products = new ArrayList<>();
 
     public SimpleProductRepository() {
-        // Продукты фиксированы для демонстрации.
-        products.add(new Product(1, "Phone X", 999));
-        products.add(new Product(2, "Tablet Y", 499));
-        products.add(new Product(3, "Laptop Z", 1499));
+        loadInitialData();
+    }
+
+    private void loadInitialData() {
+        long[] ids = {1, 2, 3};
+        String[] names = {"Phone X", "Tablet Y", "Laptop Z"};
+        double[] prices = {999, 499, 1499};
+
+        for (int i = 0; i < ids.length; i++) {
+            products.add(new Product(ids[i], names[i], prices[i]));
+        }
     }
 
     @Override
